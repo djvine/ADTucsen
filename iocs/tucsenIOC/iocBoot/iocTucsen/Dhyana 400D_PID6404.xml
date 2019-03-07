@@ -1,0 +1,30 @@
+<?TUXML version="1.0" encoding="UTF-8"?>
+<D400D Using="DftParameter">
+    <ParameterSets Name="DftParameter">
+        <Resolution>0</Resolution>
+        <PixelClock>0</PixelClock>
+        <BitOfDepth>16</BitOfDepth>
+        <GlobalGain>1</GlobalGain>
+        <Brightness>78</Brightness>
+        <ATExposure>0</ATExposure>
+        <FMExposure>0</FMExposure>
+        <LNExposure>37453</LNExposure>
+        <BlackLevel>0</BlackLevel>
+        <FlatFieldCorrection>0</FlatFieldCorrection>
+        <DenoiseValue>8</DenoiseValue>
+        <DenoisePermission>0</DenoisePermission>
+        <Temperature>0</Temperature>
+        <FanMode>0</FanMode>
+        <HDR_K>1</HDR_K>
+        <Enhance>0</Enhance>
+        <Gamma>20</Gamma>
+        <Contrast>128</Contrast>
+        <LeftLevels>0</LeftLevels>
+        <RightLevels>1</RightLevels>
+        <HistogramStatistic>0</HistogramStatistic>
+        <Horizontal>1</Horizontal>
+        <Vertical>1</Vertical>
+        <VerticalCorrection>0</VerticalCorrection>
+        <MultipleCameras>1</MultipleCameras>
+    </ParameterSets>
+</D400D>
