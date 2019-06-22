@@ -11,7 +11,6 @@ endif
 LIBRARY_IOC_Linux += tucsen
 LIB_SRCS += tucsen.cpp
 LIB_SYS_LIBS_Linux += TUCam
-CPPFLAGS += -DTUCAM_TARGETOS_IS_LINUX
 
 DBD += tucsenSupport.dbd
 

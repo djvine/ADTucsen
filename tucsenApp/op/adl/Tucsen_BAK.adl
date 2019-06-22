@@ -1,7 +1,7 @@
 
 file {
-	name="/opt/epics/synApps_5_8/support/areaDetector/ADTucsen/tucsenApp/op/adl/Tucsen.adl"
-	version=030110
+	name="/opt/epics/synApps/support/areaDetector-master/ADTucsen/tucsenApp/op/adl/Tucsen.adl"
+	version=030114
 }
 display {
 	object {
@@ -872,9 +872,9 @@ text {
 }
 menu {
 	object {
-		x=148
+		x=140
 		y=465
-		width=60
+		width=80
 		height=20
 	}
 	control {
@@ -1229,60 +1229,6 @@ composite {
 			}
 			textix="# Images complete"
 			align="horiz. right"
-		}
-	}
-}
-composite {
-	object {
-		x=415
-		y=385
-		width=270
-		height=20
-	}
-	"composite name"=""
-	children {
-		text {
-			object {
-				x=415
-				y=385
-				width=120
-				height=20
-			}
-			"basic attribute" {
-				clr=14
-			}
-			textix="# Exp./image"
-			align="horiz. right"
-		}
-		"text entry" {
-			object {
-				x=540
-				y=385
-				width=60
-				height=20
-			}
-			control {
-				chan="$(P)$(R)NumExposures"
-				clr=14
-				bclr=51
-			}
-			limits {
-			}
-		}
-		"text update" {
-			object {
-				x=605
-				y=386
-				width=80
-				height=18
-			}
-			monitor {
-				chan="$(P)$(R)NumExposures_RBV"
-				clr=54
-				bclr=4
-			}
-			limits {
-			}
 		}
 	}
 }
@@ -1908,7 +1854,7 @@ text {
 	"basic attribute" {
 		clr=14
 	}
-	textix="Gain"
+	textix="Image Mode"
 	align="horiz. right"
 }
 menu {
@@ -1919,7 +1865,7 @@ menu {
 		height=20
 	}
 	control {
-		chan="$(P)$(R)TGain"
+		chan="$(P)$(R)ImageMode"
 		clr=14
 		bclr=51
 	}
@@ -1932,7 +1878,7 @@ menu {
 		height=18
 	}
 	monitor {
-		chan="$(P)$(R)TGain_RBV"
+		chan="$(P)$(R)ImageMode_RBV"
 		clr=54
 		bclr=4
 	}

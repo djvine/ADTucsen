@@ -7,14 +7,14 @@
         <GlobalGain>0</GlobalGain>
         <Brightness>255</Brightness>
         <ATExposure>0</ATExposure>
-        <FMExposure>0</FMExposure>
-        <LNExposure>37453</LNExposure>
+        <FMExposure>1</FMExposure>
+        <LNExposure>9371</LNExposure>
         <BlackLevel>70</BlackLevel>
         <FlatFieldCorrection>0</FlatFieldCorrection>
         <Sharpness>0</Sharpness>
         <DenoiseValue>0</DenoiseValue>
         <DenoisePermission>0</DenoisePermission>
-        <Temperature>40</Temperature>
+        <Temperature>75</Temperature>
         <FanMode>0</FanMode>
         <BlackLevelHighGain>0</BlackLevelHighGain>
         <BlackLevelLowGain>0</BlackLevelLowGain>

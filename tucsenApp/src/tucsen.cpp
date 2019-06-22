@@ -5,9 +5,6 @@
  * Date  : 28 October 2017
  *
  * Based on Mark Rivers PointGrey driver.
- *
- * 19 Jan 2019 - Update to sdk version 2.0. Modified array size to be 2048x2044
- * for Dhyana 400D and 2048x2040 for 400BSI
  */
 
 
@@ -28,7 +25,7 @@
 #include <ADDriver.h>
 
 #define DRIVER_VERSION      0
-#define DRIVER_REVISION     3
+#define DRIVER_REVISION     2
 #define DRIVER_MODIFICATION 0
 
 #define TucsenBusString           "T_BUS"     
@@ -37,6 +34,7 @@
 #define TucsenTransferRateString  "T_TRANSER_RATE"
 #define TucsenFrameFormatString   "T_FRAME_FORMAT"
 #define TucsenBinningModeString   "T_BIN_MODE"
+#define TucsenImageModeString     "T_IMG_MODE"
 #define TucsenFanGearString       "T_FAN_GEAR"
 
 static const int frameFormats[3] = {
@@ -54,7 +52,7 @@ static int TUCAMInitialized = 0;
 class tucsen : public ADDriver
 {
     public:
-        tucsen( const char* portName, int cameraId, int traceMask, int maxBuffers,
+        tucsen( const char* portName, const char* cameraId, int traceMask, int maxBuffers,
                 size_t maxMemory, int priority, int stackSize);
 
         /* Virtual methods to override from ADDrive */
@@ -74,6 +72,7 @@ class tucsen : public ADDriver
         int TucsenTransferRate;
         int TucsenBinMode;
         int TucsenFanGear;
+        int TucsenImageMode;
         int TucsenFrameFormat;
 #define LAST_TUCSEN_PARAM TucsenFrameFormat
 
@@ -95,7 +94,7 @@ class tucsen : public ADDriver
         asynStatus getCapability(int property, int& value);
 
         /* Data */
-        int cameraId_;
+        const char* cameraId_;
         int exiting_;
         TUCAM_INIT apiHandle_;
         TUCAM_OPEN camHandle_;
@@ -113,7 +112,7 @@ class tucsen : public ADDriver
  * This function needs to be called once for each camera used by the IOC. A
  * call to this function instantiates one object of the Tucsen class.
  * \param[in] portName asyn port to assign to the camera
- * \param[in] cameraId The camera index or serial number
+ * \param[in] cameraId The camera serial number
  * \param[in] traceMask the initial value of asynTraceMask
  *            if set to 0 or 1 then asynTraceMask will be set to
  *            ASYN_TRACE_ERROR.
@@ -130,7 +129,7 @@ class tucsen : public ADDriver
  * \param[in] stackSize The size of the stack of the EPICS port thread. 0=use
  *            asyn default.
  */
-extern "C" int tucsenConfig(const char *portName, int cameraId, int traceMask,
+extern "C" int tucsenConfig(const char *portName, const char* cameraId, int traceMask,
         int maxBuffers, size_t maxMemory, int priority, int stackSize)
 {
     new tucsen( portName, cameraId, traceMask, maxBuffers, maxMemory, priority, stackSize);
@@ -157,7 +156,7 @@ static void tempReadTaskC(void *drvPvt)
 
 /* Constructor for the Tucsen class */
 
-tucsen::tucsen(const char *portName, int cameraId, int traceMask, int maxBuffers,
+tucsen::tucsen(const char *portName, const char* cameraId, int traceMask, int maxBuffers,
         size_t maxMemory, int priority, int stackSize)
     : ADDriver( portName, 1, NUM_TUCSEN_PARAMS, maxBuffers, maxMemory, asynEnumMask,
             asynEnumMask, ASYN_CANBLOCK | ASYN_MULTIDEVICE, 1, priority, stackSize),
@@ -167,8 +166,10 @@ tucsen::tucsen(const char *portName, int cameraId, int traceMask, int maxBuffers
 
     asynStatus status;
 
-    if(traceMask==0) traceMask = ASYN_TRACE_ERROR;
+	/*
+    traceMask = ASYN_TRACE_ERROR || ASYN_TRACEIO_DRIVER;
     pasynTrace->setTraceMask(pasynUserSelf, traceMask);
+	*/
 
     createParam(TucsenBusString,           asynParamOctet,   &TucsenBus);
     createParam(TucsenProductIDString,     asynParamFloat64, &TucsenProductID);
@@ -176,16 +177,8 @@ tucsen::tucsen(const char *portName, int cameraId, int traceMask, int maxBuffers
     createParam(TucsenTransferRateString,  asynParamFloat64, &TucsenTransferRate);
     createParam(TucsenBinningModeString,   asynParamInt32,   &TucsenBinMode);
     createParam(TucsenFanGearString,       asynParamInt32,   &TucsenFanGear);
+    createParam(TucsenImageModeString,     asynParamInt32,   &TucsenImageMode);
     createParam(TucsenFrameFormatString,   asynParamInt32,   &TucsenFrameFormat);
-
-    status = connectCamera();
-    if (status) {
-        asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
-                "%s:%s: camera connection failed (%d)\n",
-                driverName, functionName, status);
-        report(stdout, 1);
-        return;
-    }
 
     /* Set initial values for some parameters */
     setIntegerParam(NDDataType, NDUInt16);
@@ -196,24 +189,21 @@ tucsen::tucsen(const char *portName, int cameraId, int traceMask, int maxBuffers
     setStringParam(ADStringToServer, "<not used by driver>");
     setStringParam(ADStringFromServer, "<not used by driver>");
     setStringParam(ADManufacturer, "Tucsen");
-	
-	char cameraModel[256];
-	getStringParam(ADModel, sizeof(cameraModel), cameraModel);
-	printf("%s\n", cameraModel);
-	if (strcmp("Dhyana 400BSI", cameraModel)==0){
-		printf("%s\n", cameraModel);
-		setIntegerParam(ADMaxSizeX, 2048);
-		setIntegerParam(ADMaxSizeY, 2040);
-		setIntegerParam(NDArraySizeX, 2048);
-		setIntegerParam(NDArraySizeY, 2040);
-		setIntegerParam(NDArraySize, 2*2048*2040);
-	} else { /* Assume Dhyana 400D */
-		setIntegerParam(ADMaxSizeX, 2048);
-		setIntegerParam(ADMaxSizeY, 2044);
-		setIntegerParam(NDArraySizeX, 2048);
-		setIntegerParam(NDArraySizeY, 2048);
-		setIntegerParam(NDArraySize, 2*2048*2044);
-	}
+    setIntegerParam(ADMaxSizeX, 2048);
+    setIntegerParam(ADMaxSizeY, 2044);
+    setIntegerParam(NDArraySizeX, 2048);
+    setIntegerParam(NDArraySizeY, 2048);
+    setIntegerParam(NDArraySize, 2*2048*2044);
+    setStringParam(ADManufacturer, "Tucsen");
+
+    status = connectCamera();
+    if (status) {
+        asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
+                "%s:%s: camera connection failed (%d)\n",
+                driverName, functionName, status);
+        report(stdout, 1);
+        return;
+    }
 
     startEventId_ = epicsEventCreate(epicsEventEmpty);
 
@@ -271,31 +261,112 @@ asynStatus tucsen::connectCamera()
                 "%s:%s: no camera detected (%d)\n",
                 driverName, functionName, tucStatus);
         return asynError;
-    }
+    } else {
+		asynPrint(pasynUserSelf, ASYN_TRACEIO_DRIVER,
+				"%s:%s: Detected %d cameras\n",
+				driverName, functionName, apiHandle_.uiCamCount);
+	}
     
     TUCAMInitialized++;
     
-    // Init camera
-    camHandle_.hIdxTUCam = 0;
-    camHandle_.uiIdxOpen = 0;
+	// Connect to each camera and match serial number to cameraId_
+    char cSN[TUSN_SIZE] = {0};
+    TUCAM_REG_RW regRW;
 
-    tucStatus = TUCAM_Dev_Open(&camHandle_);
-    if (tucStatus!=TUCAMRET_SUCCESS){
-        asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
-                "%s:%s: open camera device failed (%d)\n",
-                driverName, functionName, tucStatus);
-        return asynError;
-    }
+    regRW.nRegType = TUREG_SN;
+    regRW.pBuf = &cSN[0];
+    regRW.nBufSize = TUSN_SIZE;
+	char* compResult = NULL;
 
-    status = setCamInfo(TucsenBus, TUIDI_BUS, 0);
-    status = setCamInfo(TucsenProductID, TUIDI_PRODUCT, 1);
-    status = setCamInfo(ADSDKVersion, TUIDI_VERSION_API, 0);
-    status = setCamInfo(ADFirmwareVersion, TUIDI_VERSION_FRMW, 0);
-    status = setCamInfo(ADModel, TUIDI_CAMERA_MODEL, 0);
-    status = setCamInfo(TucsenDriverVersion, TUIDI_VERSION_DRIVER, 0);
-    status = setSerialNumber();
+	if (strlen(cameraId_)==1){
+		camHandle_.hIdxTUCam = NULL;
+		camHandle_.uiIdxOpen = std::stoi(cameraId_);
+	} else {
+		for (int camCnt=0; camCnt<apiHandle_.uiCamCount; camCnt++){
+			if (TUCAMInitialized==0){
+				apiHandle_.pstrConfigPath = szPath;
+				apiHandle_.uiCamCount = 0;
 
-    return status;
+				tucStatus = TUCAM_Api_Init(&apiHandle_);
+				if (tucStatus!=TUCAMRET_SUCCESS){
+					asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
+							"%s:%s: TUCAM API init failed (%d)\n",
+							driverName, functionName, tucStatus);
+					return asynError;
+				}
+				if (apiHandle_.uiCamCount<1){
+					asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
+							"%s:%s: no camera detected (%d)\n",
+							driverName, functionName, tucStatus);
+					return asynError;
+				} else {
+					asynPrint(pasynUserSelf, ASYN_TRACEIO_DRIVER,
+							"%s:%s: Detected %d cameras\n",
+							driverName, functionName, apiHandle_.uiCamCount);
+				}
+				
+				TUCAMInitialized++;
+			}
+
+			// Init camera
+			camHandle_.hIdxTUCam = NULL;
+			camHandle_.uiIdxOpen = camCnt;
+
+			tucStatus = TUCAM_Dev_Open(&camHandle_);
+			if (tucStatus!=TUCAMRET_SUCCESS){
+				asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
+						"%s:%s: open camera device failed (%d)\n",
+						driverName, functionName, tucStatus);
+				return asynError;
+			}
+			tucStatus = TUCAM_Reg_Read(camHandle_.hIdxTUCam, regRW);
+			if (tucStatus==TUCAMRET_SUCCESS){
+				compResult = strstr(cSN, cameraId_);
+				if (compResult != NULL){
+					break;
+				} else {
+					asynPrint(pasynUserSelf, ASYN_TRACEIO_DRIVER,
+							"%s:%s: Camera (%d, %s) does not match requested serial number (%s)\n",
+							driverName, functionName, camCnt, cSN, cameraId_);
+				}
+			}
+			asynPrint(pasynUserSelf, ASYN_TRACEIO_DRIVER,
+					"%s:%s: Closing camera (%d)\n",
+					driverName, functionName, camCnt, cSN, cameraId_);
+			if (camHandle_.hIdxTUCam != NULL){
+				tucStatus = TUCAM_Dev_Close(camHandle_.hIdxTUCam);
+			}
+			TUCAMInitialized--;
+			if(TUCAMInitialized==0){
+				TUCAM_Api_Uninit();
+			}
+		}
+		if (compResult==NULL){
+			asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
+					"%s:%s: No camera with serial %s found!\nSet cameraId=\"\" to connect to first camera\n",
+					driverName, functionName, cameraId_);
+			return asynError;
+		}
+	}
+
+	if (camHandle_.hIdxTUCam==NULL){
+		tucStatus = TUCAM_Dev_Open(&camHandle_);
+	}
+	if (tucStatus!=TUCAMRET_SUCCESS){
+		asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
+				"%s:%s: open camera device failed (%d)\n",
+				driverName, functionName, tucStatus);
+		return asynError;
+	}
+	status = setCamInfo(TucsenBus, TUIDI_BUS, 0);
+	status = setCamInfo(TucsenProductID, TUIDI_PRODUCT, 1);
+	status = setCamInfo(ADSDKVersion, TUIDI_VERSION_API, 0);
+	status = setCamInfo(ADFirmwareVersion, TUIDI_VERSION_FRMW, 0);
+	status = setCamInfo(ADModel, TUIDI_CAMERA_MODEL, 0);
+	status = setCamInfo(TucsenDriverVersion, TUIDI_VERSION_DRIVER, 0);
+	status = setSerialNumber();
+
+	return status;
 }
 
 asynStatus tucsen::disconnectCamera(void){
@@ -582,20 +653,22 @@ asynStatus tucsen::writeInt32( asynUser *pasynUser, epicsInt32 value)
     } else if (function==TucsenFrameFormat){
         frameHandle_.ucFormatGet = frameFormats[value];
         frameHandle_.uiRsdSize = 1;
-        tucStatus = TUCAM_Buf_Release(camHandle_.hIdxTUCam);
         frameHandle_.pBuffer = NULL;
+        tucStatus = TUCAM_Buf_Release(camHandle_.hIdxTUCam);
         tucStatus = TUCAM_Buf_Alloc(camHandle_.hIdxTUCam, &frameHandle_);
     } else if (function==TucsenBinMode){
         if ((value==0)||(value==1)){
             status = setCapability(TUIDC_RESOLUTION, value);
         }
-        tucStatus = TUCAM_Buf_Release(camHandle_.hIdxTUCam);
         frameHandle_.pBuffer = NULL;
+        tucStatus = TUCAM_Buf_Release(camHandle_.hIdxTUCam);
         tucStatus = TUCAM_Buf_Alloc(camHandle_.hIdxTUCam, &frameHandle_);
     } else if (function==TucsenFanGear){
         if ((value>=0)||(value<=6)){
             status = setCapability(TUIDC_FAN_GEAR, value);
         }
+    } else if (function==TucsenImageMode){
+		status = setCapability(TUIDC_IMGMODESELECT, value);
     } else {
         if (function < FIRST_TUCSEN_PARAM){
             status = ADDriver::writeInt32(pasynUser, value);
@@ -649,12 +722,26 @@ asynStatus tucsen::writeFloat64(asynUser *pasynUser, epicsFloat64 value)
 
     asynStatus status = asynSuccess;
     int function = pasynUser->reason;
+	int tucStatus =TUCAMRET_SUCCESS;
 
     status = setDoubleParam(function, value);
 
     if (function==ADAcquireTime){
-        value*=500.0;
-        setProperty(TUIDP_EXPOSURETM, value);
+        tucStatus = setProperty(TUIDP_EXPOSURETM, value);
+        if (tucStatus!=TUCAMRET_SUCCESS){
+            asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
+                    "%s:%s: failed to set exposure time(%x)\n",
+                    driverName, functionName, tucStatus);
+		}
+	} if (function==ADTemperature){
+		/* Temperature is scaled -50C to 50C->0 to 100 */
+		value = value+50.0;
+        tucStatus = setProperty(TUIDP_TEMPERATURE, value);
+        if (tucStatus!=TUCAMRET_SUCCESS){
+            asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
+                    "%s:%s: failed to set temperature(%x)\n",
+                    driverName, functionName, tucStatus);
+		}
     } else {
         if (function < FIRST_TUCSEN_PARAM){
             status = ADDriver::writeFloat64(pasynUser, value);
@@ -734,6 +821,7 @@ asynStatus tucsen::setSerialNumber()
 
     tucStatus = TUCAM_Reg_Read(camHandle_.hIdxTUCam, regRW);
     if (tucStatus==TUCAMRET_SUCCESS){
+		printf("Camera serial number: %s\n",cSN);
         setStringParam(ADSerialNumber, cSN);
         return asynSuccess;
     } else {
@@ -752,10 +840,13 @@ asynStatus tucsen::setProperty(int property, double value){
     tucStatus = TUCAM_Prop_GetAttr(camHandle_.hIdxTUCam, &attrProp);
     if (tucStatus==TUCAMRET_SUCCESS)
     {
+		printf("min: %f Max: %f\n", attrProp.dbValMin, attrProp.dbValMax);
         if(value<attrProp.dbValMin){
             value = attrProp.dbValMin;
+			printf("Clipping set min value: %d, %f", property, value);
         } else if (value>attrProp.dbValMax){
             value = attrProp.dbValMax;
+			printf("Clipping set max value: %d, %f", property, value);
         }
     }
     tucStatus = TUCAM_Prop_SetValue(camHandle_.hIdxTUCam, property, value);
@@ -773,8 +864,25 @@ asynStatus tucsen::setCapability(int property, int val)
 {
     static const char* functionName = "setCapability";
     int tucStatus;
+	TUCAM_CAPA_ATTR attrCapa;
+	TUCAM_VALUE_TEXT valText;
+	char szRes[64] = {0};
+	valText.nTextSize = 64;
+	valText.pText = &szRes[0];
+	attrCapa.idCapa = property;
 
-    tucStatus = TUCAM_Capa_SetValue(camHandle_.hIdxTUCam, property, val);
+	tucStatus = TUCAM_Capa_GetAttr(camHandle_.hIdxTUCam, &attrCapa);
+	if (tucStatus==TUCAMRET_SUCCESS){
+		int nCnt = attrCapa.nValMax - attrCapa.nValMin;
+		valText.nID = property;
+
+		for (int i=0; i<nCnt;i++){
+			valText.dbValue = i;
+			TUCAM_Capa_GetValueText(camHandle_.hIdxTUCam, &valText);
+			printf("%s\n", valText.pText);
+		}
+	}
+	tucStatus = TUCAM_Capa_SetValue(camHandle_.hIdxTUCam, property, val);
     if (tucStatus!=TUCAMRET_SUCCESS)
     {
         asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
@@ -826,7 +934,7 @@ asynStatus tucsen::stopCapture()
 }
 
 static const iocshArg configArg0 = {"Port name", iocshArgString};
-static const iocshArg configArg1 = {"CameraId", iocshArgInt};
+static const iocshArg configArg1 = {"CameraId", iocshArgString};
 static const iocshArg configArg2 = {"traceMask", iocshArgInt};
 static const iocshArg configArg3 = {"maxBuffers", iocshArgInt};
 static const iocshArg configArg4 = {"maxMemory", iocshArgInt};
@@ -842,7 +950,7 @@ static const iocshArg * const configArgs [] = {&configArg0,
 static const iocshFuncDef configtucsen = {"tucsenConfig", 7, configArgs};
 static void configCallFunc(const iocshArgBuf *args)
 {
-    tucsenConfig(args[0].sval, args[1].ival, args[2].ival,
+    tucsenConfig(args[0].sval, args[1].sval, args[2].ival,
                  args[3].ival, args[4].ival, args[5].ival,
                  args[6].ival);
 }

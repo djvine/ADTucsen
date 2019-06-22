@@ -1,7 +1,7 @@
 
 file {
-	name="/opt/epics/synApps_5_8/support/areaDetector/ADTucsen/tucsenApp/op/adl/Tucsen.adl"
-	version=030110
+	name="/opt/epics/synApps/support/areaDetector-master/ADTucsen/tucsenApp/op/adl/Tucsen.adl"
+	version=030114
 }
 display {
 	object {
@@ -1854,7 +1854,7 @@ text {
 	"basic attribute" {
 		clr=14
 	}
-	textix="Gain"
+	textix="Gain Mode"
 	align="horiz. right"
 }
 menu {
@@ -1865,7 +1865,7 @@ menu {
 		height=20
 	}
 	control {
-		chan="$(P)$(R)TGain"
+		chan="$(P)$(R)GainMode"
 		clr=14
 		bclr=51
 	}
@@ -1878,7 +1878,7 @@ menu {
 		height=18
 	}
 	monitor {
-		chan="$(P)$(R)TGain_RBV"
+		chan="$(P)$(R)GainMode_RBV"
 		clr=54
 		bclr=4
 	}

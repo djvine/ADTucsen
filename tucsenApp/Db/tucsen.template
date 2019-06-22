@@ -117,11 +117,11 @@ record(mbbi, "$(P)$(R)BinMode_RBV")
     field(ONVL, "1")
 }
 
-record(mbbo, "$(P)$(R)TGain")
+record(mbbo, "$(P)$(R)GainMode")
 {
     field(PINI, "YES")
     field(DTYP, "asynInt32")
-    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))T_GAIN")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))T_IMG_MODE")
     field(ZRST, "HDR")
     field(ZRVL, "0")
     field(ONST, "High")
@@ -130,10 +130,10 @@ record(mbbo, "$(P)$(R)TGain")
     field(TWVL, "2")
 }
 
-record(mbbi, "$(P)$(R)TGain_RBV")
+record(mbbi, "$(P)$(R)GainMode_RBV")
 {
     field(DTYP, "asynInt32")
-    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))T_GAIN")
+    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))T_IMG_MODE")
     field(SCAN, "I/O Intr")
     field(ZRST, "HDR")
     field(ZRVL, "0")

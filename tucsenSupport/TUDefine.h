@@ -13,6 +13,7 @@
 *  @date      2015-10-12 
 
 ************************************************************************/
+#define TUCAM_TARGETOS_IS_LINUX
 #ifndef _TUDEFINE_H_
 #define _TUDEFINE_H_
 

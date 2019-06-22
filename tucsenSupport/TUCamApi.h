@@ -139,7 +139,7 @@ TUCAM_API TUCAMRET TUCAM_Buf_Detach              (HDTUCAM hTUCam);													 
 // TUCAM_API TUCAMRET TUCAM_Phx_Command	         (HDTUCAM hTUCam,UINT8 nWR, UINT8 nSlaveAdd, UINT8 nRegAdd, UINT8 *nValue);// Camera link Command
 
 // Get GrayValue
-TUCAM_API TUCAMRET TUCAM_Get_GrayValue			 (HDTUCAM hTUCam, INT32 nXPos, INT32 nYPos, UINT16 *pusValue);    
+//TUCAM_API TUCAMRET TUCAM_Get_GrayValue			 (HDTUCAM hTUCam, INT32 nXPos, INT32 nYPos, INT32 *pusValue);    
 
 // Find color temperature index value according to RGB
 TUCAM_API TUCAMRET TUCAM_Index_GetColorTemperature(HDTUCAM hTUCam, INT32 nRed, INT32 nGeen, INT32 nBlue, UINT32 *pusValue);
