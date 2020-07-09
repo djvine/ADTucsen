@@ -8,10 +8,8 @@ tucsenApp_registerRecordDeviceDriver(pdbbase)
 epicsEnvSet("PREFIX", "TUCSEN1:")
 # The port name for the detector
 epicsEnvSet("PORT",   "TUCSEN")
-# In the case of a single camera set to 0 
-# In the case of multiple camera set to integer 0 to (num cameras in system) but note that the enumeration will change with system reboot and connect/disconnect
-# In the case of multiple camera set this to the camera serial number
-epicsEnvSet("CAMERA", "KBS40B1810003")
+# The camera number in the system
+epicsEnvSet("CAMERA", "0")
 # The queue size for all plugins
 epicsEnvSet("QSIZE",  "21")
 # The maximim image width; used for row profiles in the NDPluginStats plugin
@@ -42,10 +40,11 @@ dbLoadRecords("$(ADCORE)/db/NDStdArrays.template", "P=$(PREFIX),R=image1:,PORT=I
 < $(ADCORE)/iocBoot/commonPlugins.cmd
 set_requestfile_path("$(ADTUCSEN)/tucsenApp/Db")
 
-asynSetTraceMask("$(PORT)",-1,9)
-asynSetTraceIOMask("$(PORT)",-1,4)
+#asynSetTraceMask("$(PORT)",0,9)
+asynSetTraceIOMask("$(PORT)",0,4)
 
 iocInit()
 
 # save things every thirty seconds
 create_monitor_set("auto_settings.req", 30,"P=$(PREFIX)")
+#asynSetTraceMask($(PORT), 0, 255)

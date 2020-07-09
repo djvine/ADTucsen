@@ -8,14 +8,14 @@
         <Brightness>255</Brightness>
         <ATExposure>0</ATExposure>
         <FMExposure>1</FMExposure>
-        <LNExposure>23751</LNExposure>
+        <LNExposure>28215</LNExposure>
         <BlackLevel>70</BlackLevel>
         <FlatFieldCorrection>0</FlatFieldCorrection>
         <Sharpness>0</Sharpness>
         <DenoiseValue>0</DenoiseValue>
         <DenoisePermission>0</DenoisePermission>
-        <Temperature>75</Temperature>
-        <FanMode>0</FanMode>
+        <Temperature>60</Temperature>
+        <FanMode>5</FanMode>
         <BlackLevelHighGain>0</BlackLevelHighGain>
         <BlackLevelLowGain>0</BlackLevelLowGain>
         <ImageModeSelect>0</ImageModeSelect>
