@@ -10,7 +10,12 @@
 
 #include <stdio.h>
 #include <string.h>
+#ifdef _WIN32
+#include <direct.h>
+#define getcwd _getcwd
+#else
 #include <unistd.h>
+#endif
 
 #include <epicsEvent.h>
 #include <epicsTime.h>
@@ -18,11 +23,12 @@
 #include <iocsh.h>
 #include <epicsString.h>
 #include <epicsExit.h>
-#include <epicsExport.h>
 
 #include <TUCamApi.h>
 
 #include <ADDriver.h>
+
+#include <epicsExport.h>
 
 #define DRIVER_VERSION      0
 #define DRIVER_REVISION     2
