@@ -721,7 +721,7 @@ asynStatus tucsen::setCamInfo(int param, int nID, int dtype)
 
     int tucStatus;
     TUCAM_VALUE_INFO valInfo;
-    int sSize = 1024;
+    const int sSize = 1024;
     char sInfo[sSize] = {0};
     valInfo.pText = sInfo;
     valInfo.nTextSize = sSize;
