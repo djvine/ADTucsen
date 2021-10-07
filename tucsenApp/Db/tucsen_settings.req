@@ -1,7 +1,9 @@
+$(P)$(R)BitDepth
+$(P)$(R)FrameSpeed
+$(P)$(R)BitDepth
 $(P)$(R)BinMode
+$(P)$(R)GainMode
 $(P)$(R)AutoExposure
-$(P)$(R)HorizontalMirror
-$(P)$(R)VerticalMirror
 $(P)$(R)FanGear
 $(P)$(R)AutoLevels
 $(P)$(R)Histogram
@@ -9,8 +11,8 @@ $(P)$(R)Enhance
 $(P)$(R)DefectCorrection
 $(P)$(R)EnableDenoise
 $(P)$(R)FlatCorrection
-$(P)$(R)DataFormat
 $(P)$(R)DynRgeCorrection
+$(P)$(R)FrameFormat
 $(P)$(R)Brightness
 $(P)$(R)BlackLevel
 $(P)$(R)Sharpness
@@ -20,5 +22,7 @@ $(P)$(R)Gamma
 $(P)$(R)Contrast
 $(P)$(R)LeftLevels
 $(P)$(R)RightLevels
-$(P)$(R)FrameFormat
+$(P)$(R)TriggerEdge
+$(P)$(R)TriggerExposure
+$(P)$(R)TriggerDelay
 file "ADBase_settings.req", P=$(P), R=$(R)

@@ -16,7 +16,15 @@ $(PROD_NAME)_SRCS += $(PROD_NAME)_registerRecordDeviceDriver.cpp $(PROD_NAME)Mai
 
 # Add locally compiled object code
 PROD_LIBS           += tucsen
-PROD_SYS_LIBS_Linux += TUCam
+ifeq ($(TUCAM_EXTERNAL),YES)
+PROD_SYS_LIBS       += TUCam
+else
+    ifeq ($(STATIC_BUILD),YES)
+    PROD_SYS_LIBS       += TUCam
+    else
+    PROD_LIBS           += TUCam
+    endif
+endif
 
 ifeq (windows-x64-debug, $(findstring windows-x64-debug, $(T_A)))
 USR_LDFLAGS_WIN32 += /NODEFAULTLIB:LIBCMT.lib

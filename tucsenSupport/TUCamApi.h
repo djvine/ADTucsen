@@ -1,6 +1,6 @@
 /************************************************************************
 
-*  Copyright (C) Xintu Photonics Co.,Ltd. 2012-2016. All rights reserved.
+*  Copyright (C) Xintu Photonics Co.,Ltd. 2012-2018. All rights reserved.
 
 *  @file      TuCamApi.h
 
@@ -116,9 +116,20 @@ TUCAM_API TUCAMRET TUCAM_Draw_Uninit            (HDTUCAM hTUCam);
 TUCAM_API TUCAMRET TUCAM_Calc_SetROI            (HDTUCAM hTUCam, TUCAM_CALC_ROI_ATTR roiAttr);                          
 TUCAM_API TUCAMRET TUCAM_Calc_GetROI            (HDTUCAM hTUCam, PTUCAM_CALC_ROI_ATTR pRoiAttr);         
 
+// Process image data
+TUCAM_API TUCAMRET TUCAM_Proc_Start             (HDTUCAM hTUCam, INT32 nProcType);
+TUCAM_API TUCAMRET TUCAM_Proc_Stop              (HDTUCAM hTUCam, TUCAM_FILE_SAVE fileSave);
+TUCAM_API TUCAMRET TUCAM_Proc_AbortWait         (HDTUCAM hTUCam);
+TUCAM_API TUCAMRET TUCAM_Proc_UpdateFrame       (HDTUCAM hTUCam, PTUCAM_FRAME pFrame);                              // call after TUCAM_Buf_WaitForFrame()
+TUCAM_API TUCAMRET TUCAM_Proc_WaitForFrame      (HDTUCAM hTUCam, TUCAM_FRAME **pFrame);                             // in new thread
+TUCAM_API TUCAMRET TUCAM_Proc_Prop_GetAttr      (HDTUCAM hTUCam, PTUCAM_PPROP_ATTR pAttr);                          // PTUCAM_PPROP_ATTR
+TUCAM_API TUCAMRET TUCAM_Proc_Prop_GetValue     (HDTUCAM hTUCam, INT32 nProp, DOUBLE *pdbVal);                      // TUCAM_IDPPROP
+TUCAM_API TUCAMRET TUCAM_Proc_Prop_SetValue     (HDTUCAM hTUCam, INT32 nProp, DOUBLE dbVal);                        // TUCAM_IDPPROP
+TUCAM_API TUCAMRET TUCAM_Proc_Prop_GetValueText (HDTUCAM hTUCam, PTUCAM_VALUE_TEXT pVal);
 
-
+//
 // Vendor control
+//
 TUCAM_API TUCAMRET TUCAM_Vendor_Config          (HDTUCAM hTUCam, UINT32 uiMode);
 TUCAM_API TUCAMRET TUCAM_Vendor_Update          (HDTUCAM hTUCam, PTUCAM_FW_UPDATE updateFW);
 
@@ -135,13 +146,21 @@ TUCAM_API TUCAMRET TUCAM_Vendor_ResetIndexFrame  (HDTUCAM hTUCam);													 
 TUCAM_API TUCAMRET TUCAM_Vendor_WaitForIndexFrame(HDTUCAM hTUCam, PTUCAM_FRAME pFrame);                              // call after TUCAM_Cap_Start()        
 TUCAM_API TUCAMRET TUCAM_Buf_Attach              (HDTUCAM hTUCam, PUCHAR pBuffer, UINT32 uiBufSize);				 // call after TUCAM_Buf_Alloc() to attach a user buffer
 TUCAM_API TUCAMRET TUCAM_Buf_Detach              (HDTUCAM hTUCam);													 // call after TUCAM_Buf_Attach() to detach a user buffer
-// CameraLink Command
-// TUCAM_API TUCAMRET TUCAM_Phx_Command	         (HDTUCAM hTUCam,UINT8 nWR, UINT8 nSlaveAdd, UINT8 nRegAdd, UINT8 *nValue);// Camera link Command
 
 // Get GrayValue
-//TUCAM_API TUCAMRET TUCAM_Get_GrayValue			 (HDTUCAM hTUCam, INT32 nXPos, INT32 nYPos, INT32 *pusValue);    
+TUCAM_API TUCAMRET TUCAM_Get_GrayValue			 (HDTUCAM hTUCam, INT32 nXPos, INT32 nYPos, UINT16 *pusValue);    
 
 // Find color temperature index value according to RGB
 TUCAM_API TUCAMRET TUCAM_Index_GetColorTemperature(HDTUCAM hTUCam, INT32 nRed, INT32 nGeen, INT32 nBlue, UINT32 *pusValue);
+
+// Set record save mode
+TUCAM_API TUCAMRET TUCAM_Rec_SetAppendMode      (HDTUCAM hTUCam, UINT32 uiMode);
+
+// Get the last stitch frame no edge
+TUCAM_API TUCAMRET TUCAM_Proc_CopyFrame         (HDTUCAM hTUCam, TUCAM_FRAME **pFrame);
+
+// Config the AF platform
+TUCAM_API TUCAMRET TUCAM_Vendor_AFPlatform      (HDTUCAM hTUCam, ILen *pLen);
+
 
 #endif      // _TUCAM_API_H_
