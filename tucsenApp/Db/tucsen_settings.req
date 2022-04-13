@@ -25,4 +25,16 @@ $(P)$(R)RightLevels
 $(P)$(R)TriggerEdge
 $(P)$(R)TriggerExposure
 $(P)$(R)TriggerDelay
+$(P)$(R)TriggerOut1Mode
+$(P)$(R)TriggerOut1Edge
+$(P)$(R)TriggerOut1Delay
+$(P)$(R)TriggerOut1Width
+$(P)$(R)TriggerOut2Mode
+$(P)$(R)TriggerOut2Edge
+$(P)$(R)TriggerOut2Delay
+$(P)$(R)TriggerOut2Width
+$(P)$(R)TriggerOut3Mode
+$(P)$(R)TriggerOut3Edge
+$(P)$(R)TriggerOut3Delay
+$(P)$(R)TriggerOut3Width
 file "ADBase_settings.req", P=$(P), R=$(R)
