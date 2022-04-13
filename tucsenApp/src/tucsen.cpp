@@ -785,33 +785,49 @@ asynStatus tucsen::writeInt32( asynUser *pasynUser, epicsInt32 value)
         status |= setCapability(TUIDC_RESOLUTION, value);
         status |= setROI();
     } else if (function==TucsenBitDepth){
-        status = setCapability(TUIDC_BITOFDEPTH, value);
+        status |= setCapability(TUIDC_BITOFDEPTH, value);
+        status |= getCapability(TUIDC_BITOFDEPTH, value);
+        status |= setIntegerParam(function, value);
     } else if (function==TucsenFanGear){
-        status = setCapability(TUIDC_FAN_GEAR, value);
+        status |= setCapability(TUIDC_FAN_GEAR, value);
+        status |= getCapability(TUIDC_FAN_GEAR, value);
+        status |= setIntegerParam(function, value);
     } else if (function==TucsenImageMode){
-        status = setCapability(TUIDC_IMGMODESELECT, value);
+        status |= setCapability(TUIDC_IMGMODESELECT, value);
+        status |= getCapability(TUIDC_IMGMODESELECT, value);
+        status |= setIntegerParam(function, value);
     } else if (function==TucsenAutoExposure){
-        status = setCapability(TUIDC_ATEXPOSURE, value);
+        status |= setCapability(TUIDC_ATEXPOSURE, value);
+        status |= getCapability(TUIDC_ATEXPOSURE, value);
+        status |= setIntegerParam(function, value);
     } else if (function==TucsenAutoLevels){
         status |= setCapability(TUIDC_ATLEVELS, value);
         status |= getCapability(TUIDC_ATLEVELS, value);
-        setIntegerParam(function, value);
+        status |= setIntegerParam(function, value);
         int hist = (value!=0);
         status |= setCapability(TUIDC_HISTC, hist);
         status |= getCapability(TUIDC_HISTC, hist);
-        setIntegerParam(function, value);
+        status |= setIntegerParam(function, value);
     } else if (function==TucsenHistogram){
         status |= setCapability(TUIDC_HISTC, value);
         status |= getCapability(TUIDC_HISTC, value);
-        setIntegerParam(function, value);
+        status |= setIntegerParam(function, value);
     } else if (function==TucsenEnhance){
-        status = setCapability(TUIDC_ENHANCE, value);
+        status |= setCapability(TUIDC_ENHANCE, value);
+        status |= getCapability(TUIDC_ENHANCE, value);
+        status |= setIntegerParam(function, value);
     } else if (function==TucsenDefectCorr){
-        status = setCapability(TUIDC_DFTCORRECTION, value);
+        status |= setCapability(TUIDC_DFTCORRECTION, value);
+        status |= getCapability(TUIDC_DFTCORRECTION, value);
+        status |= setIntegerParam(function, value);
     } else if (function==TucsenDenoise){
-        status = setCapability(TUIDC_ENABLEDENOISE, value);
+        status |= setCapability(TUIDC_ENABLEDENOISE, value);
+        status |= getCapability(TUIDC_ENABLEDENOISE, value);
+        status |= setIntegerParam(function, value);
     } else if (function==TucsenFlatCorr){
-        status = setCapability(TUIDC_FLTCORRECTION, value);
+        status |= setCapability(TUIDC_FLTCORRECTION, value);
+        status |= getCapability(TUIDC_FLTCORRECTION, value);
+        status |= setIntegerParam(function, value);
     } else if (function==TucsenTriggerSoftware){
         int acquire, triggerMode;
         getIntegerParam(ADAcquire, &acquire);
