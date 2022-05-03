@@ -187,6 +187,7 @@ class tucsen : public ADDriver
         TUCAM_TRGOUT_ATTR triggerOutHandle_[3];
         epicsEventId startEventId_;
         NDArray *pRaw_;
+        int triggerOutSupport_;
 };
 
 #define NUM_TUCSEN_PARAMS ((int)(&LAST_TUCSEN_PARAM-&FIRST_TUCSEN_PARAM+1))
@@ -245,7 +246,7 @@ tucsen::tucsen(const char *portName, int cameraId, int traceMask, int maxBuffers
         size_t maxMemory, int priority, int stackSize)
     : ADDriver( portName, 1, NUM_TUCSEN_PARAMS, maxBuffers, maxMemory, asynEnumMask,
             asynEnumMask, ASYN_CANBLOCK | ASYN_MULTIDEVICE, 1, priority, stackSize),
-    cameraId_(cameraId), exiting_(0), pRaw_(NULL)
+    cameraId_(cameraId), exiting_(0), pRaw_(NULL), triggerOutSupport_(0)
 {
     static const char *functionName = "tucsen";
 
@@ -402,8 +403,14 @@ asynStatus tucsen::connectCamera()
     status |= setCamInfo(ADMaxSizeY, TUIDI_CURRENT_HEIGHT, 2);
     status |= getROI();
     status |= getTrigger();
-    for(int port = 0; port < 3; port++)
-        status |= getTriggerOut(port);
+
+    triggerOutSupport_ = 1;
+    for(int port = 0; port < 3; port++) {
+        if (getTriggerOut(port) != asynSuccess) {
+            triggerOutSupport_ = 0;
+            break;
+        }
+    }
 
     return (asynStatus)status;
 }
@@ -769,16 +776,28 @@ asynStatus tucsen::writeInt32( asynUser *pasynUser, epicsInt32 value)
         status |= getTrigger();
     } else if ((function==TucsenTriggerOut1Mode) ||
                (function==TucsenTriggerOut1Edge)){
-        status |= setTriggerOut(0);
-        status |= getTriggerOut(0);
+        if (triggerOutSupport_) {
+            status |= setTriggerOut(0);
+            status |= getTriggerOut(0);
+        } else {
+            setIntegerParam(function, 0);
+        }
     } else if ((function==TucsenTriggerOut2Mode) ||
                (function==TucsenTriggerOut2Edge)){
-        status |= setTriggerOut(1);
-        status |= getTriggerOut(1);
+        if (triggerOutSupport_) {
+            status |= setTriggerOut(1);
+            status |= getTriggerOut(1);
+        } else {
+            setIntegerParam(function, 0);
+        }
     } else if ((function==TucsenTriggerOut3Mode) ||
                (function==TucsenTriggerOut3Edge)){
-        status |= setTriggerOut(2);
-        status |= getTriggerOut(2);
+        if (triggerOutSupport_) {
+            status |= setTriggerOut(2);
+            status |= getTriggerOut(2);
+        } else {
+            setIntegerParam(function, 0);
+        }
     } else if (function==TucsenFrameFormat){
         frameHandle_.ucFormatGet = frameFormats[value];
     } else if (function==TucsenBinMode){
@@ -918,16 +937,28 @@ asynStatus tucsen::writeFloat64(asynUser *pasynUser, epicsFloat64 value)
         status |= getTrigger();
     } else if ((function==TucsenTriggerOut1Delay) ||
                (function==TucsenTriggerOut1Width)){
-        status |= setTriggerOut(0);
-        status |= getTriggerOut(0);
+        if (triggerOutSupport_) {
+            status |= setTriggerOut(0);
+            status |= getTriggerOut(0);
+        } else {
+            setDoubleParam(function, 0);
+        }
     } else if ((function==TucsenTriggerOut2Delay) ||
                (function==TucsenTriggerOut2Width)){
-        status |= setTriggerOut(1);
-        status |= getTriggerOut(1);
+        if (triggerOutSupport_) {
+            status |= setTriggerOut(1);
+            status |= getTriggerOut(1);
+        } else {
+            setDoubleParam(function, 0);
+        }
     } else if ((function==TucsenTriggerOut3Delay) ||
                (function==TucsenTriggerOut3Width)){
-        status |= setTriggerOut(2);
-        status |= getTriggerOut(2);
+        if (triggerOutSupport_) {
+            status |= setTriggerOut(2);
+            status |= getTriggerOut(2);
+        } else {
+            setDoubleParam(function, 0);
+        }
     } else if (function==TucsenBrightness){
         status |= setProperty(TUIDP_BRIGHTNESS, value);
         status |= getProperty(TUIDP_BRIGHTNESS, value);
