@@ -1226,8 +1226,7 @@ asynStatus tucsen::getCapabilityText(int property, char *strings[], int values[]
             asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
                     "%s:%s unable to get capability text %d:%d (0x%x)\n",
                     driverName, functionName, property, i, tucStatus);
-            *nIn = 0;
-            return asynError;
+            sprintf(valText.pText, "%d", i + attrCapa.nValMin);
         }
 
         if (strings[i])
