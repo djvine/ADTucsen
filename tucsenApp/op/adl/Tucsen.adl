@@ -5,8 +5,8 @@ file {
 }
 display {
 	object {
-		x=819
-		y=103
+		x=103
+		y=109
 		width=715
 		height=950
 	}
@@ -651,7 +651,7 @@ text {
 "text update" {
 	object {
 		x=148
-		y=567
+		y=557
 		width=61
 		height=18
 	}
@@ -667,7 +667,7 @@ text {
 "text entry" {
 	object {
 		x=148
-		y=587
+		y=577
 		width=60
 		height=20
 	}
@@ -682,7 +682,7 @@ text {
 "text entry" {
 	object {
 		x=241
-		y=587
+		y=577
 		width=60
 		height=20
 	}
@@ -697,7 +697,7 @@ text {
 "text update" {
 	object {
 		x=241
-		y=567
+		y=557
 		width=61
 		height=18
 	}
@@ -713,7 +713,7 @@ text {
 text {
 	object {
 		x=17
-		y=587
+		y=577
 		width=120
 		height=20
 	}
@@ -726,7 +726,7 @@ text {
 text {
 	object {
 		x=17
-		y=632
+		y=622
 		width=120
 		height=20
 	}
@@ -739,7 +739,7 @@ text {
 composite {
 	object {
 		x=148
-		y=612
+		y=602
 		width=154
 		height=40
 	}
@@ -748,7 +748,7 @@ composite {
 		"text entry" {
 			object {
 				x=148
-				y=632
+				y=622
 				width=60
 				height=20
 			}
@@ -763,7 +763,7 @@ composite {
 		"text entry" {
 			object {
 				x=241
-				y=632
+				y=622
 				width=60
 				height=20
 			}
@@ -778,7 +778,7 @@ composite {
 		"text update" {
 			object {
 				x=148
-				y=612
+				y=602
 				width=61
 				height=18
 			}
@@ -794,7 +794,7 @@ composite {
 		"text update" {
 			object {
 				x=241
-				y=612
+				y=602
 				width=61
 				height=18
 			}
@@ -825,7 +825,7 @@ menu {
 text {
 	object {
 		x=34
-		y=727
+		y=717
 		width=180
 		height=20
 	}
@@ -838,7 +838,7 @@ text {
 "text update" {
 	object {
 		x=241
-		y=728
+		y=718
 		width=80
 		height=18
 	}
@@ -853,7 +853,7 @@ text {
 "text update" {
 	object {
 		x=241
-		y=703
+		y=693
 		width=61
 		height=18
 	}
@@ -869,7 +869,7 @@ text {
 text {
 	object {
 		x=37
-		y=702
+		y=692
 		width=100
 		height=20
 	}
@@ -882,7 +882,7 @@ text {
 "text update" {
 	object {
 		x=148
-		y=703
+		y=693
 		width=61
 		height=18
 	}
@@ -1006,7 +1006,7 @@ rectangle {
 		x=360
 		y=205
 		width=350
-		height=420
+		height=475
 	}
 	"basic attribute" {
 		clr=14
@@ -1258,7 +1258,7 @@ text {
 composite {
 	object {
 		x=395
-		y=500
+		y=549
 		width=303
 		height=20
 	}
@@ -1267,7 +1267,7 @@ composite {
 		text {
 			object {
 				x=395
-				y=500
+				y=549
 				width=140
 				height=20
 			}
@@ -1280,7 +1280,7 @@ composite {
 		"text update" {
 			object {
 				x=540
-				y=500
+				y=549
 				width=158
 				height=18
 			}
@@ -1298,7 +1298,7 @@ composite {
 text {
 	object {
 		x=365
-		y=525
+		y=574
 		width=60
 		height=20
 	}
@@ -1311,7 +1311,7 @@ text {
 "text update" {
 	object {
 		x=430
-		y=525
+		y=574
 		width=275
 		height=18
 	}
@@ -1327,7 +1327,7 @@ text {
 "text entry" {
 	object {
 		x=540
-		y=550
+		y=599
 		width=60
 		height=20
 	}
@@ -1342,7 +1342,7 @@ text {
 text {
 	object {
 		x=405
-		y=550
+		y=599
 		width=130
 		height=20
 	}
@@ -1355,7 +1355,7 @@ text {
 "text update" {
 	object {
 		x=605
-		y=551
+		y=600
 		width=80
 		height=18
 	}
@@ -1370,7 +1370,7 @@ text {
 composite {
 	object {
 		x=435
-		y=575
+		y=624
 		width=205
 		height=20
 	}
@@ -1379,7 +1379,7 @@ composite {
 		text {
 			object {
 				x=435
-				y=575
+				y=624
 				width=100
 				height=20
 			}
@@ -1392,7 +1392,7 @@ composite {
 		"text update" {
 			object {
 				x=540
-				y=576
+				y=625
 				width=100
 				height=18
 			}
@@ -1409,7 +1409,7 @@ composite {
 composite {
 	object {
 		x=365
-		y=600
+		y=649
 		width=330
 		height=20
 	}
@@ -1418,7 +1418,7 @@ composite {
 		text {
 			object {
 				x=365
-				y=600
+				y=649
 				width=150
 				height=20
 			}
@@ -1431,7 +1431,7 @@ composite {
 		menu {
 			object {
 				x=520
-				y=600
+				y=649
 				width=90
 				height=20
 			}
@@ -1444,7 +1444,7 @@ composite {
 		"text update" {
 			object {
 				x=615
-				y=602
+				y=651
 				width=80
 				height=18
 			}
@@ -1489,9 +1489,9 @@ menu {
 composite {
 	object {
 		x=359
-		y=793
+		y=834
 		width=350
-		height=110
+		height=60
 	}
 	"composite name"=""
 	"composite file"="ADAttrFile.adl"
@@ -1499,7 +1499,7 @@ composite {
 text {
 	object {
 		x=70
-		y=806
+		y=792
 		width=90
 		height=20
 	}
@@ -1512,7 +1512,7 @@ text {
 menu {
 	object {
 		x=165
-		y=806
+		y=792
 		width=80
 		height=20
 	}
@@ -1525,7 +1525,7 @@ menu {
 "text update" {
 	object {
 		x=250
-		y=806
+		y=792
 		width=85
 		height=18
 	}
@@ -1571,7 +1571,7 @@ menu {
 text {
 	object {
 		x=30
-		y=831
+		y=842
 		width=130
 		height=20
 	}
@@ -1584,7 +1584,7 @@ text {
 menu {
 	object {
 		x=165
-		y=831
+		y=842
 		width=80
 		height=20
 	}
@@ -1597,7 +1597,7 @@ menu {
 "text update" {
 	object {
 		x=250
-		y=831
+		y=842
 		width=85
 		height=18
 	}
@@ -1652,9 +1652,9 @@ composite {
 composite {
 	object {
 		x=359
-		y=629
+		y=688
 		width=350
-		height=160
+		height=135
 	}
 	"composite name"=""
 	"composite file"="ADBuffers.adl"
@@ -1662,7 +1662,7 @@ composite {
 text {
 	object {
 		x=67
-		y=677
+		y=667
 		width=70
 		height=20
 	}
@@ -1675,7 +1675,7 @@ text {
 menu {
 	object {
 		x=148
-		y=677
+		y=667
 		width=60
 		height=18
 	}
@@ -1688,7 +1688,7 @@ menu {
 "text update" {
 	object {
 		x=148
-		y=657
+		y=647
 		width=61
 		height=18
 	}
@@ -1705,7 +1705,7 @@ menu {
 menu {
 	object {
 		x=241
-		y=677
+		y=667
 		width=60
 		height=18
 	}
@@ -1718,7 +1718,7 @@ menu {
 "text update" {
 	object {
 		x=241
-		y=657
+		y=647
 		width=61
 		height=18
 	}
@@ -1763,7 +1763,7 @@ text {
 text {
 	object {
 		x=70
-		y=781
+		y=767
 		width=90
 		height=20
 	}
@@ -1776,7 +1776,7 @@ text {
 menu {
 	object {
 		x=165
-		y=781
+		y=767
 		width=80
 		height=20
 	}
@@ -1789,7 +1789,7 @@ menu {
 "text update" {
 	object {
 		x=250
-		y=781
+		y=767
 		width=85
 		height=18
 	}
@@ -1805,7 +1805,7 @@ menu {
 text {
 	object {
 		x=40
-		y=757
+		y=743
 		width=120
 		height=20
 	}
@@ -1818,7 +1818,7 @@ text {
 menu {
 	object {
 		x=166
-		y=757
+		y=743
 		width=80
 		height=20
 	}
@@ -1831,7 +1831,7 @@ menu {
 "text update" {
 	object {
 		x=251
-		y=757
+		y=743
 		width=85
 		height=18
 	}
@@ -1917,4 +1917,103 @@ text {
 	clr=14
 	bclr=51
 	label="More"
+}
+text {
+	object {
+		x=28
+		y=817
+		width=130
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Gain"
+	align="horiz. right"
+}
+"text update" {
+	object {
+		x=248
+		y=817
+		width=85
+		height=18
+	}
+	monitor {
+		chan="$(P)$(R)Gain_RBV"
+		clr=54
+		bclr=4
+	}
+	format="string"
+	limits {
+	}
+}
+"text entry" {
+	object {
+		x=165
+		y=817
+		width=80
+		height=20
+	}
+	control {
+		chan="$(P)$(R)Gain"
+		clr=14
+		bclr=51
+	}
+	limits {
+	}
+}
+text {
+	object {
+		x=385
+		y=498
+		width=150
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="# Queued arrays"
+	align="horiz. right"
+}
+"text update" {
+	object {
+		x=540
+		y=499
+		width=60
+		height=18
+	}
+	monitor {
+		chan="$(P)$(R)NumQueuedArrays"
+		clr=54
+		bclr=4
+	}
+	align="horiz. right"
+	limits {
+	}
+}
+text {
+	object {
+		x=375
+		y=523
+		width=160
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Wait for plugins"
+	align="horiz. right"
+}
+menu {
+	object {
+		x=540
+		y=523
+		width=80
+		height=20
+	}
+	control {
+		chan="$(P)$(R)WaitForPlugins"
+		clr=14
+		bclr=51
+	}
 }

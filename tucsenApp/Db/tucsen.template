@@ -589,13 +589,16 @@ record(ao, "$(P)$(R)TriggerDelay")
    field(PINI, "YES")
    field(DTYP, "asynFloat64")
    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))T_TRIG_DLY")
+   field(PREC, "6")
+   field(EGU,  "s")
 }
 
 record(ai, "$(P)$(R)TriggerDelay_RBV")
 {
    field(DTYP, "asynFloat64")
    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))T_TRIG_DLY")
-   field(PREC, "3")
+   field(PREC, "6")
+   field(EGU,  "s")
    field(SCAN, "I/O Intr")
 }
 
@@ -605,4 +608,292 @@ record(bo, "$(P)$(R)SoftwareTrigger")
    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))T_TRIG_SOFT")
    field(ZNAM, "Off")
    field(ONAM, "On")
+}
+
+record(mbbo, "$(P)$(R)TriggerOut1Mode")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))T_TRGOUT1_MODE")
+   field(ZRST, "Low")
+   field(ZRVL, "0")
+   field(ONST, "High")
+   field(ONVL, "1")
+   field(TWST, "Trigger In")
+   field(TWVL, "2")
+   field(THST, "Exposure Start")
+   field(THVL, "3")
+   field(FRST, "Exposure Global")
+   field(FRVL, "4")
+   field(FVST, "Readout End")
+   field(FVVL, "5")
+}
+
+record(mbbi, "$(P)$(R)TriggerOut1Mode_RBV")
+{
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))T_TRGOUT1_MODE")
+   field(SCAN, "I/O Intr")
+   field(ZRST, "Low")
+   field(ZRVL, "0")
+   field(ONST, "High")
+   field(ONVL, "1")
+   field(TWST, "Trigger In")
+   field(TWVL, "2")
+   field(THST, "Exposure Start")
+   field(THVL, "3")
+   field(FRST, "Exposure Global")
+   field(FRVL, "4")
+   field(FVST, "Readout End")
+   field(FVVL, "5")
+}
+
+record(mbbo, "$(P)$(R)TriggerOut1Edge")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))T_TRGOUT1_EDGE")
+   field(ZRST, "FallingEdge")
+   field(ZRVL, "0")
+   field(ONST, "RisingEdge")
+   field(ONVL, "1")
+}
+
+record(mbbi, "$(P)$(R)TriggerOut1Edge_RBV")
+{
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))T_TRGOUT1_EDGE")
+   field(SCAN, "I/O Intr")
+   field(ZRST, "FallingEdge")
+   field(ZRVL, "0")
+   field(ONST, "RisingEdge")
+   field(ONVL, "1")
+}
+
+record(ao, "$(P)$(R)TriggerOut1Delay")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynFloat64")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))T_TRGOUT1_DLY")
+   field(PREC, "6")
+   field(EGU,  "s")
+}
+
+record(ai, "$(P)$(R)TriggerOut1Delay_RBV")
+{
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))T_TRGOUT1_DLY")
+   field(SCAN, "I/O Intr")
+   field(PREC, "6")
+   field(EGU,  "s")
+}
+
+record(ao, "$(P)$(R)TriggerOut1Width")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynFloat64")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))T_TRGOUT1_WIDTH")
+   field(PREC, "6")
+   field(EGU,  "s")
+}
+
+record(ai, "$(P)$(R)TriggerOut1Width_RBV")
+{
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))T_TRGOUT1_WIDTH")
+   field(SCAN, "I/O Intr")
+   field(PREC, "6")
+   field(EGU,  "s")
+}
+
+record(mbbo, "$(P)$(R)TriggerOut2Mode")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))T_TRGOUT2_MODE")
+   field(ZRST, "Low")
+   field(ZRVL, "0")
+   field(ONST, "High")
+   field(ONVL, "1")
+   field(TWST, "Trigger In")
+   field(TWVL, "2")
+   field(THST, "Exposure Start")
+   field(THVL, "3")
+   field(FRST, "Exposure Global")
+   field(FRVL, "4")
+   field(FVST, "Readout End")
+   field(FVVL, "5")
+}
+
+record(mbbi, "$(P)$(R)TriggerOut2Mode_RBV")
+{
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))T_TRGOUT2_MODE")
+   field(SCAN, "I/O Intr")
+   field(ZRST, "Low")
+   field(ZRVL, "0")
+   field(ONST, "High")
+   field(ONVL, "1")
+   field(TWST, "Trigger In")
+   field(TWVL, "2")
+   field(THST, "Exposure Start")
+   field(THVL, "3")
+   field(FRST, "Exposure Global")
+   field(FRVL, "4")
+   field(FVST, "Readout End")
+   field(FVVL, "5")
+}
+
+record(mbbo, "$(P)$(R)TriggerOut2Edge")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))T_TRGOUT2_EDGE")
+   field(ZRST, "FallingEdge")
+   field(ZRVL, "0")
+   field(ONST, "RisingEdge")
+   field(ONVL, "1")
+}
+
+record(mbbi, "$(P)$(R)TriggerOut2Edge_RBV")
+{
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))T_TRGOUT2_EDGE")
+   field(SCAN, "I/O Intr")
+   field(ZRST, "FallingEdge")
+   field(ZRVL, "0")
+   field(ONST, "RisingEdge")
+   field(ONVL, "1")
+}
+
+record(ao, "$(P)$(R)TriggerOut2Delay")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynFloat64")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))T_TRGOUT2_DLY")
+   field(PREC, "6")
+   field(EGU,  "s")
+}
+
+record(ai, "$(P)$(R)TriggerOut2Delay_RBV")
+{
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))T_TRGOUT2_DLY")
+   field(SCAN, "I/O Intr")
+   field(PREC, "6")
+   field(EGU,  "s")
+}
+
+record(ao, "$(P)$(R)TriggerOut2Width")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynFloat64")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))T_TRGOUT2_WIDTH")
+   field(PREC, "6")
+   field(EGU,  "s")
+}
+
+record(ai, "$(P)$(R)TriggerOut2Width_RBV")
+{
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))T_TRGOUT2_WIDTH")
+   field(SCAN, "I/O Intr")
+   field(PREC, "6")
+   field(EGU,  "s")
+}
+
+record(mbbo, "$(P)$(R)TriggerOut3Mode")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))T_TRGOUT3_MODE")
+   field(ZRST, "Low")
+   field(ZRVL, "0")
+   field(ONST, "High")
+   field(ONVL, "1")
+   field(TWST, "Trigger In")
+   field(TWVL, "2")
+   field(THST, "Exposure Start")
+   field(THVL, "3")
+   field(FRST, "Exposure Global")
+   field(FRVL, "4")
+   field(FVST, "Readout End")
+   field(FVVL, "5")
+}
+
+record(mbbi, "$(P)$(R)TriggerOut3Mode_RBV")
+{
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))T_TRGOUT3_MODE")
+   field(SCAN, "I/O Intr")
+   field(ZRST, "Low")
+   field(ZRVL, "0")
+   field(ONST, "High")
+   field(ONVL, "1")
+   field(TWST, "Trigger In")
+   field(TWVL, "2")
+   field(THST, "Exposure Start")
+   field(THVL, "3")
+   field(FRST, "Exposure Global")
+   field(FRVL, "4")
+   field(FVST, "Readout End")
+   field(FVVL, "5")
+}
+
+record(mbbo, "$(P)$(R)TriggerOut3Edge")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))T_TRGOUT3_EDGE")
+   field(ZRST, "FallingEdge")
+   field(ZRVL, "0")
+   field(ONST, "RisingEdge")
+   field(ONVL, "1")
+}
+
+record(mbbi, "$(P)$(R)TriggerOut3Edge_RBV")
+{
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))T_TRGOUT3_EDGE")
+   field(SCAN, "I/O Intr")
+   field(ZRST, "FallingEdge")
+   field(ZRVL, "0")
+   field(ONST, "RisingEdge")
+   field(ONVL, "1")
+}
+
+record(ao, "$(P)$(R)TriggerOut3Delay")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynFloat64")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))T_TRGOUT3_DLY")
+   field(PREC, "6")
+   field(EGU,  "s")
+}
+
+record(ai, "$(P)$(R)TriggerOut3Delay_RBV")
+{
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))T_TRGOUT3_DLY")
+   field(SCAN, "I/O Intr")
+   field(PREC, "6")
+   field(EGU,  "s")
+}
+
+record(ao, "$(P)$(R)TriggerOut3Width")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynFloat64")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))T_TRGOUT3_WIDTH")
+   field(PREC, "6")
+   field(EGU,  "s")
+}
+
+record(ai, "$(P)$(R)TriggerOut3Width_RBV")
+{
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))T_TRGOUT3_WIDTH")
+   field(SCAN, "I/O Intr")
+   field(PREC, "6")
+   field(EGU,  "s")
 }
