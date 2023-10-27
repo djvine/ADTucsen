@@ -4,10 +4,10 @@
 <widget class="QMainWindow" name="MainWindow">
     <property name="geometry">
         <rect>
-            <x>103</x>
-            <y>109</y>
+            <x>74</x>
+            <y>59</y>
             <width>715</width>
-            <height>950</height>
+            <height>980</height>
         </rect>
     </property>
     <property name="styleSheet">
@@ -84,16 +84,6 @@ caChoice &gt; QPushButton {
       text-align: left;
       padding: 1px;
 }
-
-/* when font specified, no font sizing is done any more,  font: 10pt; is not bad. You could Enable this when you converted from .adl files
-caRelatedDisplay  &gt; QPushButton {
-font: 10pt;
-}
-
-caShellCommand  &gt; QPushButton {
-font: 10pt;
-}
-*/
 
 caSlider::groove:horizontal {
 border: 1px solid #bbb;
@@ -1016,7 +1006,7 @@ border-radius: 2px;
             <property name="geometry">
                 <rect>
                     <x>5</x>
-                    <y>865</y>
+                    <y>867</y>
                     <width>350</width>
                     <height>80</height>
                 </rect>
@@ -4150,17 +4140,17 @@ border-radius: 2px;
             <property name="geometry">
                 <rect>
                     <x>359</x>
-                    <y>834</y>
+                    <y>856</y>
                     <width>354</width>
-                    <height>64</height>
+                    <height>114</height>
                 </rect>
             </property>
             <property name="geometry">
                 <rect>
                     <x>359</x>
-                    <y>834</y>
+                    <y>856</y>
                     <width>352</width>
-                    <height>62</height>
+                    <height>112</height>
                 </rect>
             </property>
             <property name="filename">
@@ -4621,7 +4611,7 @@ border-radius: 2px;
                     <x>359</x>
                     <y>688</y>
                     <width>354</width>
-                    <height>139</height>
+                    <height>164</height>
                 </rect>
             </property>
             <property name="geometry">
@@ -4629,7 +4619,7 @@ border-radius: 2px;
                     <x>359</x>
                     <y>688</y>
                     <width>352</width>
-                    <height>137</height>
+                    <height>162</height>
                 </rect>
             </property>
             <property name="filename">
@@ -5341,8 +5331,8 @@ border-radius: 2px;
         <widget class="caRelatedDisplay" name="caRelatedDisplay_1">
             <property name="geometry">
                 <rect>
-                    <x>494</x>
-                    <y>915</y>
+                    <x>139</x>
+                    <y>952</y>
                     <width>70</width>
                     <height>20</height>
                 </rect>

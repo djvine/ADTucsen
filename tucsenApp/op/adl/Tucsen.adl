@@ -5,10 +5,10 @@ file {
 }
 display {
 	object {
-		x=103
-		y=109
+		x=74
+		y=59
 		width=715
-		height=950
+		height=980
 	}
 	clr=14
 	bclr=4
@@ -391,7 +391,7 @@ text {
 rectangle {
 	object {
 		x=5
-		y=865
+		y=867
 		width=350
 		height=80
 	}
@@ -1489,9 +1489,9 @@ menu {
 composite {
 	object {
 		x=359
-		y=834
+		y=856
 		width=350
-		height=60
+		height=110
 	}
 	"composite name"=""
 	"composite file"="ADAttrFile.adl"
@@ -1654,7 +1654,7 @@ composite {
 		x=359
 		y=688
 		width=350
-		height=135
+		height=160
 	}
 	"composite name"=""
 	"composite file"="ADBuffers.adl"
@@ -1904,8 +1904,8 @@ text {
 }
 "related display" {
 	object {
-		x=494
-		y=915
+		x=139
+		y=952
 		width=70
 		height=20
 	}

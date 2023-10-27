@@ -394,7 +394,7 @@ asynStatus tucsen::connectCamera()
         return asynError;
     }
 
-    status |= setCamInfo(TucsenBus, TUIDI_BUS, 0);
+    status |= setCamInfo(TucsenBus, TUIDI_BUS, 1);
     status |= setCamInfo(TucsenProductID, TUIDI_PRODUCT, 1);
     status |= setCamInfo(ADSDKVersion, TUIDI_VERSION_API, 0);
     status |= setCamInfo(ADFirmwareVersion, TUIDI_VERSION_FRMW, 0);
@@ -1050,11 +1050,14 @@ asynStatus tucsen::setCamInfo(int param, int nID, int dtype)
     static const char* functionName = "setCamInfo";
 
     int tucStatus;
-    TUCAM_VALUE_INFO valInfo;
+    TUCAM_VALUE_INFO valInfo = {0, 0, NULL, 0};
     const int sSize = 1024;
     char sInfo[sSize] = {0};
-    valInfo.pText = sInfo;
-    valInfo.nTextSize = sSize;
+
+    if (dtype == 0) {
+        valInfo.pText = sInfo;
+        valInfo.nTextSize = sSize;
+    }
     valInfo.nID = nID;
 
     tucStatus = TUCAM_Dev_GetInfo(camHandle_.hIdxTUCam, &valInfo);
